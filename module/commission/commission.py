@@ -198,6 +198,8 @@ class RewardCommission(UI, InfoHandler):
             return False
         if not self.config.Commission_DoMajorCommission and commission.category_str == 'major':
             return False
+        if commission.genre == 'daily_chip':
+            return False
 
         return True
 
