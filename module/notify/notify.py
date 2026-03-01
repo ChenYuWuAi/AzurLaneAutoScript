@@ -50,6 +50,11 @@ def handle_notify(_config: str, **kwargs) -> bool:
             if access_token:
                 config["token"] = access_token
 
+        # onepush Lark 的 _prepare_data 把 keyword/sign 当必填实参，但文档里为可选，未传会报错，此处补默认值
+        if provider_name.lower() == "lark":
+            config.setdefault("keyword", "")
+            config.setdefault("sign", "")
+
         resp = notifier.notify(**config)
         if isinstance(resp, Response):
             if resp.status_code != 200:
